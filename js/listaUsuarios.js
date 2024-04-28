@@ -61,6 +61,37 @@ document.addEventListener("DOMContentLoaded", () => {
            // Ocultar el mensaje de error (si está visible)
            document.getElementById("msg").style.display = "none";
        });
+
+           // Vincula un evento de escucha al modal de restablecimiento de contraseña
+let modalRestablecerContraseña = document.getElementById("restablecerContraseñaModal");
+modalRestablecerContraseña.addEventListener("shown.bs.modal", limpiarModalRestablecimientoContraseña);
+
+// Define la función que se ejecutará cuando se muestre el modal de restablecimiento de contraseña
+function limpiarModalRestablecimientoContraseña() {
+    // Selecciona los campos de nueva contraseña y confirmar contraseña
+    let nuevaContraseña = document.getElementById("nuevaContraseña");
+    let confirmarContraseña = document.getElementById("confirmarContraseña");
+    
+    // Selecciona los contenedores de advertencia
+    let advertenciaNuevaContraseña = document.getElementById("advertenciaNuevaContraseña");
+    let advertenciaConfirmarContraseña = document.getElementById("advertenciaConfirmarContraseña");
+    
+    // Restablece los campos de nueva contraseña y confirmar contraseña
+    nuevaContraseña.value = "";
+    confirmarContraseña.value = "";
+    
+    // Limpia los mensajes de advertencia
+    advertenciaNuevaContraseña.textContent = "";
+    advertenciaConfirmarContraseña.textContent = "";
+    
+    // Elimina las clases de validación `is-valid` e `is-invalid`
+    nuevaContraseña.classList.remove("is-valid", "is-invalid");
+    confirmarContraseña.classList.remove("is-valid", "is-invalid");
+    
+    // Restablece los atributos de validación personalizados (`setCustomValidity`)
+    nuevaContraseña.setCustomValidity("");
+    confirmarContraseña.setCustomValidity("");
+}
    });
 
 
