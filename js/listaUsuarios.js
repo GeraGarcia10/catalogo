@@ -62,35 +62,35 @@ document.addEventListener("DOMContentLoaded", () => {
            document.getElementById("msg").style.display = "none";
        });
 
-           // Vincula un evento de escucha al modal de restablecimiento de contraseña
-let modalRestablecerContraseña = document.getElementById("restablecerContraseñaModal");
-modalRestablecerContraseña.addEventListener("shown.bs.modal", limpiarModalRestablecimientoContraseña);
+       // Vincula un evento de escucha al modal de restablecimiento de contraseña
+            let modalRestablecerContraseña = document.getElementById("restablecerContraseñaModal");
+            modalRestablecerContraseña.addEventListener("shown.bs.modal", limpiarModalRestablecimientoContraseña);
 
-// Define la función que se ejecutará cuando se muestre el modal de restablecimiento de contraseña
-function limpiarModalRestablecimientoContraseña() {
-    // Selecciona los campos de nueva contraseña y confirmar contraseña
-    let nuevaContraseña = document.getElementById("nuevaContraseña");
-    let confirmarContraseña = document.getElementById("confirmarContraseña");
-    
-    // Selecciona los contenedores de advertencia
-    let advertenciaNuevaContraseña = document.getElementById("advertenciaNuevaContraseña");
-    let advertenciaConfirmarContraseña = document.getElementById("advertenciaConfirmarContraseña");
-    
-    // Restablece los campos de nueva contraseña y confirmar contraseña
-    nuevaContraseña.value = "";
-    confirmarContraseña.value = "";
-    
-    // Limpia los mensajes de advertencia
-    advertenciaNuevaContraseña.textContent = "";
-    advertenciaConfirmarContraseña.textContent = "";
-    
-    // Elimina las clases de validación `is-valid` e `is-invalid`
-    nuevaContraseña.classList.remove("is-valid", "is-invalid");
-    confirmarContraseña.classList.remove("is-valid", "is-invalid");
-    
-    // Restablece los atributos de validación personalizados (`setCustomValidity`)
-    nuevaContraseña.setCustomValidity("");
-    confirmarContraseña.setCustomValidity("");
+        // Define la función que se ejecutará cuando se muestre el modal de restablecimiento de contraseña
+        function limpiarModalRestablecimientoContraseña() {
+            // Selecciona los campos de nueva contraseña y confirmar contraseña
+            let nuevaContraseña = document.getElementById("nuevaContraseña");
+            let confirmarContraseña = document.getElementById("confirmarContraseña");
+            
+            // Selecciona los contenedores de advertencia
+            let advertenciaNuevaContraseña = document.getElementById("advertenciaNuevaContraseña");
+            let advertenciaConfirmarContraseña = document.getElementById("advertenciaConfirmarContraseña");
+            
+            // Restablece los campos de nueva contraseña y confirmar contraseña
+            nuevaContraseña.value = "";
+            confirmarContraseña.value = "";
+            
+            // Limpia los mensajes de advertencia
+            advertenciaNuevaContraseña.textContent = "";
+            advertenciaConfirmarContraseña.textContent = "";
+            
+            // Elimina las clases de validación `is-valid` e `is-invalid`
+            nuevaContraseña.classList.remove("is-valid", "is-invalid");
+            confirmarContraseña.classList.remove("is-valid", "is-invalid");
+            
+            // Restablece los atributos de validación personalizados (`setCustomValidity`)
+            nuevaContraseña.setCustomValidity("");
+            confirmarContraseña.setCustomValidity("");
 }
    });
 
@@ -407,24 +407,6 @@ function cargarTabla() {
     });
 }
 
-// Función para validar los campos de nueva contraseña y confirmación EN EL MODAL DE REESTABLECER CONTRASEÑA
-function validarCamposContraseña() {
-    let nuevaContraseña = document.getElementById("nuevaContraseña");
-    let confirmarContraseña = document.getElementById("confirmarContraseña");
-
-    nuevaContraseña.setCustomValidity("");
-    confirmarContraseña.setCustomValidity("");
-
-    // Validar la longitud de la nueva contraseña
-    if (nuevaContraseña.value.length < 6 || nuevaContraseña.value.length > 20) {
-        nuevaContraseña.setCustomValidity("La contraseña debe tener entre 6 y 20 caracteres.");
-    }
-
-    // Validar que las contraseñas coincidan
-    if (nuevaContraseña.value !== confirmarContraseña.value) {
-        confirmarContraseña.setCustomValidity("Las contraseñas no coinciden.");
-    }
-}
     // Función para validar el campo de teléfono
     function validarTelefono(e) {
         let telefono = e.target;
@@ -462,6 +444,84 @@ function editarUsuario(correo) {
         window.usuarioEditadoCorreo = usuario.correo;
     }
 }
+
+// Vincula la función a `shown.bs.modal` del modal de restablecimiento de contraseña
+let modalContraseña = document.getElementById("restablecerContraseñaModal");
+modalContraseña.addEventListener("shown.bs.modal", vaciarCamposModalContraseña);
+
+// Función para validar los campos de nueva contraseña y confirmación EN EL MODAL DE REESTABLECER CONTRASEÑA
+function validarCamposContraseña() {
+    let nuevaContraseña = document.getElementById("nuevaContraseña");
+    let confirmarContraseña = document.getElementById("confirmarContraseña");
+
+    nuevaContraseña.setCustomValidity("");
+    confirmarContraseña.setCustomValidity("");
+
+    // Validar la longitud de la nueva contraseña
+    if (nuevaContraseña.value.length < 6 || nuevaContraseña.value.length > 20) {
+        nuevaContraseña.setCustomValidity("La contraseña debe tener entre 6 y 20 caracteres.");
+    }
+
+    // Validar que las contraseñas coincidan
+    if (nuevaContraseña.value !== confirmarContraseña.value) {
+        confirmarContraseña.setCustomValidity("Las contraseñas no coinciden.");
+    }
+}
+
+// Función para validar los campos de nueva contraseña y confirmación en tiempo real
+function validarCamposContraseña() {
+    // Obtener los campos de nueva contraseña y confirmar contraseña
+    let nuevaContraseña = document.getElementById("nuevaContraseña");
+    let confirmarContraseña = document.getElementById("confirmarContraseña");
+
+    // Obtener los contenedores de advertencia
+    let advertenciaNuevaContraseña = document.getElementById("advertenciaNuevaContraseña");
+    let advertenciaConfirmarContraseña = document.getElementById("advertenciaConfirmarContraseña");
+
+    // Resetear mensajes y clases de validación
+    nuevaContraseña.setCustomValidity("");
+    nuevaContraseña.classList.remove("is-invalid");
+    nuevaContraseña.classList.remove("is-valid");
+    confirmarContraseña.setCustomValidity("");
+    confirmarContraseña.classList.remove("is-invalid");
+    confirmarContraseña.classList.remove("is-valid");
+    advertenciaNuevaContraseña.textContent = "";
+    advertenciaConfirmarContraseña.textContent = "";
+
+    // Validar si el campo de nueva contraseña está vacío
+    if (nuevaContraseña.value.trim() == "") {
+        nuevaContraseña.setCustomValidity("La nueva contraseña no puede estar vacía.");
+        nuevaContraseña.classList.add("is-invalid");
+        advertenciaNuevaContraseña.textContent = "La nueva contraseña no puede estar vacía.";
+    } else {
+        // Validar la longitud de la nueva contraseña
+        let valorNuevaContraseña = nuevaContraseña.value.trim();
+        if (valorNuevaContraseña.length < 6 || valorNuevaContraseña.length > 20) {
+            nuevaContraseña.setCustomValidity("La contraseña debe tener entre 6 y 20 caracteres.");
+            nuevaContraseña.classList.add("is-invalid");
+            advertenciaNuevaContraseña.textContent = "La contraseña debe tener entre 6 y 20 caracteres.";
+        } else {
+            nuevaContraseña.classList.add("is-valid");
+        }
+    }
+    // Validar si el campo de confirmar contraseña está vacío
+    if (confirmarContraseña.value.trim() == "") {
+        confirmarContraseña.setCustomValidity("La confirmación de contraseña no puede estar vacía.");
+        confirmarContraseña.classList.add("is-invalid");
+        advertenciaConfirmarContraseña.textContent = "La confirmación de contraseña no puede estar vacía.";
+    } else {
+        // Validar que las contraseñas coincidan
+        let valorConfirmarContraseña = confirmarContraseña.value.trim();
+        if (nuevaContraseña.value.trim() !== valorConfirmarContraseña) {
+            confirmarContraseña.setCustomValidity("Las contraseñas no coinciden.");
+            confirmarContraseña.classList.add("is-invalid");
+            advertenciaConfirmarContraseña.textContent = "Las contraseñas no coinciden.";
+        } else {
+            confirmarContraseña.classList.add("is-valid");
+        }
+    }
+}
+
 //EN EL MODAL DE REESTABLECER CONTRASEÑA
 function restablecerContraseñaUsuario() {
     // Obtener los campos del modal de restablecimiento de contraseña
@@ -492,70 +552,6 @@ function restablecerContraseñaUsuario() {
     }
 }
 
-function vaciarCamposModalContraseña() {
-    // Vaciar los campos de contraseña
-    document.getElementById("nuevaContraseña").value = "";
-    document.getElementById("confirmarContraseña").value = "";
-}
-
-// Vincula la función a `shown.bs.modal` del modal de restablecimiento de contraseña
-let modalContraseña = document.getElementById("restablecerContraseñaModal");
-modalContraseña.addEventListener("shown.bs.modal", vaciarCamposModalContraseña);
-
-// Función para validar los campos de nueva contraseña y confirmación en tiempo real
-function validarCamposContraseña() {
-    // Obtener los campos de nueva contraseña y confirmar contraseña
-    let nuevaContraseña = document.getElementById("nuevaContraseña");
-    let confirmarContraseña = document.getElementById("confirmarContraseña");
-
-    // Obtener los contenedores de advertencia
-    let advertenciaNuevaContraseña = document.getElementById("advertenciaNuevaContraseña");
-    let advertenciaConfirmarContraseña = document.getElementById("advertenciaConfirmarContraseña");
-
-    // Resetear mensajes y clases de validación
-    nuevaContraseña.setCustomValidity("");
-    nuevaContraseña.classList.remove("is-invalid");
-    nuevaContraseña.classList.remove("is-valid");
-    confirmarContraseña.setCustomValidity("");
-    confirmarContraseña.classList.remove("is-invalid");
-    confirmarContraseña.classList.remove("is-valid");
-    advertenciaNuevaContraseña.textContent = "";
-    advertenciaConfirmarContraseña.textContent = "";
-
-    // Validar si el campo de nueva contraseña está vacío
-    if (nuevaContraseña.value.trim() === "") {
-        nuevaContraseña.setCustomValidity("La nueva contraseña no puede estar vacía.");
-        nuevaContraseña.classList.add("is-invalid");
-        advertenciaNuevaContraseña.textContent = "La nueva contraseña no puede estar vacía.";
-    } else {
-        // Validar la longitud de la nueva contraseña
-        let valorNuevaContraseña = nuevaContraseña.value.trim();
-        if (valorNuevaContraseña.length < 6 || valorNuevaContraseña.length > 20) {
-            nuevaContraseña.setCustomValidity("La contraseña debe tener entre 6 y 20 caracteres.");
-            nuevaContraseña.classList.add("is-invalid");
-            advertenciaNuevaContraseña.textContent = "La contraseña debe tener entre 6 y 20 caracteres.";
-        } else {
-            nuevaContraseña.classList.add("is-valid");
-        }
-    }
-
-    // Validar si el campo de confirmar contraseña está vacío
-    if (confirmarContraseña.value.trim() === "") {
-        confirmarContraseña.setCustomValidity("La confirmación de contraseña no puede estar vacía.");
-        confirmarContraseña.classList.add("is-invalid");
-        advertenciaConfirmarContraseña.textContent = "La confirmación de contraseña no puede estar vacía.";
-    } else {
-        // Validar que las contraseñas coincidan
-        let valorConfirmarContraseña = confirmarContraseña.value.trim();
-        if (nuevaContraseña.value.trim() !== valorConfirmarContraseña) {
-            confirmarContraseña.setCustomValidity("Las contraseñas no coinciden.");
-            confirmarContraseña.classList.add("is-invalid");
-            advertenciaConfirmarContraseña.textContent = "Las contraseñas no coinciden.";
-        } else {
-            confirmarContraseña.classList.add("is-valid");
-        }
-    }
-}
 
 
 // Función para eliminar un usuario de la lista
